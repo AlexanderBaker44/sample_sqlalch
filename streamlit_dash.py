@@ -1,3 +1,4 @@
+'''
 import streamlit as st
 from sqlalchemy import text
 import pandas as pd
@@ -12,4 +13,18 @@ with engine.connect() as con:
     fg = con.execute(stuff).fetchall()
 
 df = pd.DataFrame(fg)
+st.table(df)
+'''
+
+# streamlit_app.py
+
+import streamlit as st
+
+# Initialize connection.
+conn = st.experimental_connection("postgresql", type="sql")
+
+# Perform query.
+df = conn.query('SELECT * FROM themes;', ttl="10m")
+
+# Print results.
 st.table(df)
